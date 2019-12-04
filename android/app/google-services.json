@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "298885756058",
+    "firebase_url": "https://timebuddy-flutter.firebaseio.com",
+    "project_id": "timebuddy-flutter",
+    "storage_bucket": "timebuddy-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298885756058:android:75db1dc24f1ccbedbcdb23",
+        "android_client_info": {
+          "package_name": "com.project.timebuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298885756058-r2hs4kpp199jll4ou1juosj2nf4va3no.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAg_M2-oqHtbd73b6FGayiXeWFf094PGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298885756058-r2hs4kpp199jll4ou1juosj2nf4va3no.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
