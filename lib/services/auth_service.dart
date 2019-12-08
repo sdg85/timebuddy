@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:timebuddy/models/user.dart';
 
-class AuthService {
+class AuthService with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //auth change user stream

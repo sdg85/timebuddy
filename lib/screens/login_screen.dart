@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timebuddy/screens/forgot_password_screen.dart';
 import 'package:timebuddy/services/auth_service.dart';
 import 'package:timebuddy/widgets/in_progress_loader.dart';
@@ -12,7 +13,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final AuthService auth = AuthService();
   String _email;
   String _password;
   String _errorMessage;
@@ -22,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthService>(context);
     return SafeArea(
       child: _loading
           ? InProgressLoader()
@@ -137,8 +138,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               padding: EdgeInsets.only(right: 0, left: 30),
                               onPressed: () async {
                                 if (_formKey.currentState.validate()) {
-                                  setState(() => _loading = true);
                                   _formKey.currentState.save();
+                                  setState(() => _loading = true);
                                   final result =
                                       await auth.signInWithEmailAndPassword(
                                           _email, _password);

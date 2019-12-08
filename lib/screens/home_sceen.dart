@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timebuddy/widgets/layout.dart';
 import "../services/auth_service.dart";
 
 class HomeScreen extends StatelessWidget {
-  final AuthService auth = AuthService();
+  // final AuthService auth = AuthService();
 
   HomeScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthService>(context);
     return Layout(
       title: "Home",
       child: Container(

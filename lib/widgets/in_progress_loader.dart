@@ -10,7 +10,9 @@ class InProgressLoader extends StatelessWidget {
       width: double.infinity,
       color: Color(0xffF2F4F9),
       child: Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.blue,
+        ),
       ),
     );
   }

@@ -1,20 +1,30 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timebuddy/services/auth_service.dart';
+import 'package:timebuddy/widgets/in_progress_loader.dart';
 
-class Layout extends StatelessWidget {
+class Layout extends StatefulWidget {
   final String title;
   final Widget child;
-  final AuthService auth = AuthService();
-  final GlobalKey<ScaffoldState> _layoutKey = GlobalKey<ScaffoldState>();
 
   Layout({Key key, this.title, this.child}) : super(key: key);
 
   @override
+  _LayoutState createState() => _LayoutState();
+}
+
+class _LayoutState extends State<Layout> {
+  bool loading = false;
+
+  final GlobalKey<ScaffoldState> _layoutKey = GlobalKey<ScaffoldState>();
+
+  @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthService>(context);
     return SafeArea(
-      child: Scaffold(
+      child: loading ? InProgressLoader() : Scaffold(
         key: _layoutKey,
         backgroundColor: Color(0xff017ACD),
         appBar: PreferredSize(
@@ -32,7 +42,7 @@ class Layout extends StatelessWidget {
             centerTitle: true,
             elevation: 0,
             backgroundColor: Color(0xff017ACD),
-            title: Text(title),
+            title: Text(widget.title),
           ),
         ),
         drawer: Drawer(
@@ -44,6 +54,9 @@ class Layout extends StatelessWidget {
                 title: Text("Logout"),
                 onTap: () {
                   Navigator.pop(context);
+                  setState(() {
+                    loading = true;
+                  });
                   Timer(
                     Duration(milliseconds: 400),
                     () async => await auth.signOut(),
@@ -64,7 +77,7 @@ class Layout extends StatelessWidget {
             color: Color(0xffF2F4F9),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: child,
+              child: widget.child,
             ),
           ),
         ),
