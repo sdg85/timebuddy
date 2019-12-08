@@ -1,6 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:timebuddy/screens/forgot_password_screen.dart';
 import 'package:timebuddy/services/auth_service.dart';
+import 'package:timebuddy/widgets/in_progress_loader.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -22,14 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: _loading
-          ? Container(
-              height: double.infinity,
-              width: double.infinity,
-              color: Color(0xffF2F4F9),
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            )
+          ? InProgressLoader()
           : Scaffold(
               resizeToAvoidBottomPadding: false,
               backgroundColor: Color(0xff017ACD),
@@ -70,30 +65,31 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 30,
                             ),
                             TextFormField(
-                                keyboardType: TextInputType.emailAddress,
-                                style: TextStyle(height: 1.0),
-                                decoration: InputDecoration(
-                                  hintText: "Användarnamn",
-                                  hintStyle:
-                                      TextStyle(fontWeight: FontWeight.w500),
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  prefixIcon: Image.asset(
-                                    "assets/images/user.png",
-                                    scale: 2.0,
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
+                              keyboardType: TextInputType.emailAddress,
+                              style: TextStyle(height: 1.0),
+                              decoration: InputDecoration(
+                                hintText: "Användarnamn",
+                                hintStyle:
+                                    TextStyle(fontWeight: FontWeight.w500),
+                                fillColor: Colors.white,
+                                filled: true,
+                                prefixIcon: Image.asset(
+                                  "assets/images/user.png",
+                                  scale: 2.0,
                                 ),
-                                validator: (value) {
-                                  if (!EmailValidator.validate(value)) {
-                                    return "Var god och ange ett giltigt e-postadress";
-                                  }
-                                  return null;
-                                },
-                                onSaved: (value) => _email = value),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              validator: (value) {
+                                if (!EmailValidator.validate(value)) {
+                                  return "Var god och ange ett giltigt e-postadress";
+                                }
+                                return null;
+                              },
+                              onSaved: (value) => _email = value,
+                            ),
                             SizedBox(
                               height: 10,
                             ),
@@ -189,7 +185,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 20,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ForgotPasswordScreen(),
+                                  ),
+                                );
+                              },
                               child: Center(
                                 child: Text(
                                   "Glömt lösenord?",
