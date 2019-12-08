@@ -21,12 +21,12 @@ class AuthService {
   }
 
   Future<User> signInWithEmailAndPassword(String email, String password) async {
-    try{
-      final result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+    try {
+      final result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       FirebaseUser user = result.user;
       return _firebaseUserToUser(user);
-    }
-    catch(e){
+    } catch (e) {
       print(e.toString());
       return null;
     }
@@ -39,6 +39,16 @@ class AuthService {
     } catch (e) {
       print(e.toString());
       return null;
+    }
+  }
+
+  Future<bool> forgotPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
     }
   }
 
