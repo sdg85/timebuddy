@@ -1,6 +1,6 @@
 # timebuddy
 
-A new Flutter project.
+A time tracking and scheduling app build with flutter.
 
 ## Getting Started
 
