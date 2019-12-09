@@ -17,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String _password;
   String _errorMessage;
   bool _loading = false;
+  bool _autoValidate = false;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -40,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Padding(
                       padding: EdgeInsets.all(30),
                       child: Form(
-                        autovalidate: true,
+                        autovalidate: _autoValidate,
                         key: _formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: Colors.black87,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 24,
-                                // fontFamily: "Poppins",
                               ),
                             ),
                             SizedBox(
@@ -66,12 +66,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 30,
                             ),
                             TextFormField(
+                              initialValue: _email,
                               keyboardType: TextInputType.emailAddress,
                               style: TextStyle(height: 1.0),
                               decoration: InputDecoration(
                                 hintText: "Användarnamn",
-                                hintStyle:
-                                    TextStyle(fontWeight: FontWeight.w500),
+                                hintStyle: TextStyle(
+                                  fontWeight: FontWeight.w500
+                                  ),
                                 fillColor: Colors.white,
                                 filled: true,
                                 prefixIcon: Image.asset(
@@ -95,6 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 10,
                             ),
                             TextFormField(
+                              initialValue: _password,
                               keyboardType: TextInputType.text,
                               style: TextStyle(
                                 height: 1.0,
@@ -152,6 +155,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     });
                                   }
                                 }
+                                setState(() {
+                                  _autoValidate = true;
+                                });
                               },
                               child: Row(
                                 mainAxisAlignment:
