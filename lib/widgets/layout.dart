@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timebuddy/services/auth_service.dart';
+import 'package:timebuddy/widgets/app-drawer.dart';
 import 'package:timebuddy/widgets/in_progress_loader.dart';
 
 class Layout extends StatefulWidget {
@@ -45,27 +46,7 @@ class _LayoutState extends State<Layout> {
             title: Text(widget.title),
           ),
         ),
-        drawer: Drawer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.power_settings_new),
-                title: Text("Logout"),
-                onTap: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    loading = true;
-                  });
-                  Timer(
-                    Duration(milliseconds: 400),
-                    () async => await auth.signOut(),
-                  );
-                },
-              )
-            ],
-          ),
-        ),
+        drawer: AppDrawer(),
         body: ClipRRect(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(60),
