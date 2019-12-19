@@ -6,6 +6,7 @@ import 'package:timebuddy/services/auth_service.dart';
 import 'package:timebuddy/widgets/in_progress_loader.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const String routeName = "/login";
   LoginScreen({Key key}) : super(key: key);
 
   @override
@@ -155,6 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     });
                                   }
                                 }
+                                if(!mounted) return;
                                 setState(() {
                                   _autoValidate = true;
                                 });

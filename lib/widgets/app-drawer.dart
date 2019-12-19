@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:timebuddy/routes/routes.dart';
 
 class AppDrawer extends StatefulWidget {
-  AppDrawer({Key key}) : super(key: key);
+  final String title;
+  AppDrawer({Key key, this.title}) : super(key: key);
 
   @override
   _AppDrawerState createState() => _AppDrawerState();
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  String _selectedTitle;
+  String _selected;
+
+  @override
+  void initState() {
+    super.initState();
+    _selected = widget.title;
+  }
 
   final drawerItems = [
-    {"title": "Schema", "icon": Icons.calendar_today},
-    {"title": "Tid", "icon": Icons.schedule},
-    {"title": "Mail", "icon": Icons.mail_outline},
-    {"title": "Kollegor", "icon": Icons.people_outline},
-    {"title": "Minsida", "icon": Icons.person_outline},
-    {"title": "Intresseanmälan", "icon": Icons.today},
+    { "title": "Schema", "icon": Icons.calendar_today, "pageUrl": Routes.schedule },
+    { "title": "Tid", "icon": Icons.schedule, "pageUrl": Routes.stamp },
+    {"title": "Mail", "icon": Icons.mail_outline, "pageUrl": Routes.mail},
+    { "title": "Kollegor", "icon": Icons.people_outline, "pageUrl": Routes.colleges },
+    { "title": "Minsida", "icon": Icons.person_outline, "pageUrl": Routes.mypage },
+    {"title": "Intresseanmälan", "icon": Icons.today, "pageUrl": Routes.noticeOfInterest},
   ];
 
   @override
@@ -39,10 +47,11 @@ class _AppDrawerState extends State<AppDrawer> {
                     itemCount: drawerItems.length,
                     itemBuilder: (context, index) {
                       final item = drawerItems[index];
-                      return _listTileBuilder(
+                      return _listTileBuilder(context,
                           title: item["title"],
                           icon: item["icon"],
-                          selected: item["title"] == _selectedTitle);
+                          pageUrl: item["pageUrl"],
+                          selected: item["title"] == _selected);
                     },
                   ),
                 ),
@@ -62,8 +71,11 @@ class _AppDrawerState extends State<AppDrawer> {
   }
 
   //custom list tile for drawer
-  Container _listTileBuilder(
-      {@required String title, IconData icon, bool selected = false}) {
+  Container _listTileBuilder(BuildContext context,
+      {@required String title,
+      IconData icon,
+      String pageUrl,
+      bool selected = false}) {
     return Container(
       margin: EdgeInsets.only(left: 1.0),
       decoration: BoxDecoration(
@@ -77,8 +89,9 @@ class _AppDrawerState extends State<AppDrawer> {
         dense: true,
         onTap: () {
           setState(() {
-            _selectedTitle = title;
+            _selected = title;
           });
+          Navigator.pushNamed(context, pageUrl);
         },
         title: Text(title,
             style: TextStyle(

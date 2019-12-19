@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timebuddy/models/user.dart';
+import 'package:timebuddy/routes/routes.dart';
+import 'package:timebuddy/screens/login_screen.dart';
+import 'package:timebuddy/screens/mail_screen.dart';
+import 'package:timebuddy/screens/schedule_screen.dart';
+import 'package:timebuddy/screens/stamp_screen.dart';
 import 'package:timebuddy/screens/wrapper.dart';
 import 'package:timebuddy/services/auth_service.dart';
+
+import 'screens/colleges_screen.dart';
+import 'screens/mypage_screen.dart';
+import 'screens/notice_of_interest_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,6 +31,15 @@ class MyApp extends StatelessWidget {
           accentColor: MaterialColor(0xffF2F4F9, secondaryColor),
           fontFamily: "Poppins",
         ),
+        routes:{
+          Routes.login: (_) => LoginScreen(),
+          Routes.schedule: (_) => ScheduleScreen(),
+          Routes.stamp: (_) => StampScreen(),
+          Routes.mail: (_) => MailScreen(),
+          Routes.colleges: (_) => CollegesScreen(),
+          Routes.mypage: (_) => MyPageScreen(),
+          Routes.noticeOfInterest: (_) => NoticeOfInterestScreen()
+        },
         title: 'Flutter Demo',
         home: Wrapper(),
       ),
