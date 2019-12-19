@@ -1,8 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:timebuddy/services/auth_service.dart';
 import 'package:timebuddy/widgets/app-drawer.dart';
 import 'package:timebuddy/widgets/in_progress_loader.dart';
 
@@ -23,46 +19,49 @@ class _LayoutState extends State<Layout> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthService>(context);
     return SafeArea(
-      child: loading ? InProgressLoader() : Scaffold(
-        key: _layoutKey,
-        backgroundColor: Color(0xff017ACD),
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65),
-          child: AppBar(
-            leading: IconButton(
-              icon: Icon(
-                Icons.sort,
-                size: 30,
+      child: loading
+          ? InProgressLoader()
+          : Scaffold(
+              key: _layoutKey,
+              backgroundColor: Color(0xff017ACD),
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(65),
+                child: AppBar(
+                  leading: IconButton(
+                    icon: Icon(
+                      Icons.sort,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      _layoutKey.currentState.openDrawer();
+                    },
+                  ),
+                  centerTitle: true,
+                  elevation: 0,
+                  backgroundColor: Color(0xff017ACD),
+                  title: Text(widget.title),
+                ),
               ),
-              onPressed: () {
-                _layoutKey.currentState.openDrawer();
-              },
+              drawer: AppDrawer(
+                title: widget.title,
+              ),
+              body: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(60),
+                ),
+                child: Container(
+                  // width: MediaQuery.of(context).size.width,
+                  // height: MediaQuery.of(context).size.height,
+                  constraints: BoxConstraints.expand(),
+                  color: Color(0xffF2F4F9),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: widget.child,
+                  ),
+                ),
+              ),
             ),
-            centerTitle: true,
-            elevation: 0,
-            backgroundColor: Color(0xff017ACD),
-            title: Text(widget.title),
-          ),
-        ),
-        drawer: AppDrawer(),
-        body: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(60),
-          ),
-          child: Container(
-            // width: MediaQuery.of(context).size.width,
-            // height: MediaQuery.of(context).size.height,
-            constraints: BoxConstraints.expand(),
-            color: Color(0xffF2F4F9),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: widget.child,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
