@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
+
 import 'package:timebuddy/models/user.dart';
+import 'package:timebuddy/providers/work_shift_provider.dart';
 import 'package:timebuddy/routes/routes.dart';
 import 'package:timebuddy/screens/login_screen.dart';
 import 'package:timebuddy/screens/mail_screen.dart';
@@ -13,7 +16,8 @@ import 'screens/colleges_screen.dart';
 import 'screens/mypage_screen.dart';
 import 'screens/notice_of_interest_screen.dart';
 
-void main() => runApp(MyApp());
+void main() => initializeDateFormatting("sv_SE", null)
+.then((_) => runApp(MyApp()));
 
 class MyApp extends StatelessWidget {
   @override
@@ -23,6 +27,9 @@ class MyApp extends StatelessWidget {
       value: AuthService().user),
       ChangeNotifierProvider<AuthService>.value(
         value: AuthService(),
+      ),
+     ChangeNotifierProvider<WorkShiftProvider>.value(
+        value: WorkShiftProvider(),
       )
     ],
       child: MaterialApp(
