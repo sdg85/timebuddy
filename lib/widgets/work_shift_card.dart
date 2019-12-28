@@ -50,15 +50,18 @@ class WorkShiftCard extends StatelessWidget {
                     ],
                   ),
                 ]),
-                SizedBox(height: 15.0,),
+                SizedBox(
+                  height: 12.0,
+                ),
                 Row(
                   children: <Widget>[
-                    Icon(
-                      Icons.place,
-                      size: 18.0,
+                    Image.asset(
+                      "assets/images/map.png",
+                      height: 15.0,
+                      width: 15.0,
                     ),
                     SizedBox(
-                      width: 5.0,
+                      width: 10.0,
                     ),
                     Text(
                       employeeShift.place,
@@ -68,12 +71,12 @@ class WorkShiftCard extends StatelessWidget {
                           fontWeight: FontWeight.w500),
                     ),
                     Spacer(),
-                    Icon(
-                      Icons.local_cafe,
-                      size: 18.0,
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 5.0),
+                      child: Image.asset("assets/images/coffee.png",height: 15.0, width: 15.0),
                     ),
                     SizedBox(
-                      width: 5.0,
+                      width: 10.0,
                     ),
                     Text(
                       "${DateFormat('HH:mm').format(shift.restStart)} - ${DateFormat('HH:mm').format(shift.restEnd)}",
@@ -83,7 +86,8 @@ class WorkShiftCard extends StatelessWidget {
                           fontSize: 12.0),
                     )
                   ],
-                )
+                ),
+                SizedBox(height: 5.0,)
               ],
             ),
           ),
