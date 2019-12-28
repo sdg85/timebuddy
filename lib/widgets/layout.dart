@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timebuddy/widgets/app-drawer.dart';
+import 'package:timebuddy/widgets/app_drawer.dart';
 import 'package:timebuddy/widgets/in_progress_loader.dart';
 
 class Layout extends StatefulWidget {
