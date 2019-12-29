@@ -51,14 +51,8 @@ class _LayoutState extends State<Layout> {
                   topRight: Radius.circular(60),
                 ),
                 child: Container(
-                  // width: MediaQuery.of(context).size.width,
-                  // height: MediaQuery.of(context).size.height,
-                  constraints: BoxConstraints.expand(),
                   color: Color(0xffF2F4F9),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: widget.child,
-                  ),
+                  child: widget.child,
                 ),
               ),
             ),
