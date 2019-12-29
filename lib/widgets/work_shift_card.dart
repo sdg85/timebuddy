@@ -15,96 +15,99 @@ class WorkShiftCard extends StatelessWidget {
     final shift = provider.getEmployeeDayShift(employeeShift);
 
     return Stack(children: <Widget>[
-      Padding(
-        padding: EdgeInsets.only(top: 30),
-        child: Card(
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              border: Border(
-                right: BorderSide(width: 5.0, color: Colors.orange),
+        Container(
+          margin: EdgeInsets.all(15.0),
+                  child: Card(
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                border: Border(
+                  right: BorderSide(width: 5.0, color: Colors.orange),
+                ),
               ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(children: [
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(children: [
+                    SizedBox(
+                      width: 80.0,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "${employeeShift.name}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 15.0),
+                        ),
+                        Text(
+                          "${DateFormat('HH:mm').format(shift.startDate)} - ${DateFormat('HH:mm').format(shift.endDate)}",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12.0),
+                        ),
+                      ],
+                    ),
+                  ]),
                   SizedBox(
-                    width: 80.0,
+                    height: 12.0,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: <Widget>[
-                      Text(
-                        "${employeeShift.name}",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 15.0),
+                      Image.asset(
+                        "assets/images/map.png",
+                        height: 15.0,
+                        width: 15.0,
+                      ),
+                      SizedBox(
+                        width: 7.0,
                       ),
                       Text(
-                        "${DateFormat('HH:mm').format(shift.startDate)} - ${DateFormat('HH:mm').format(shift.endDate)}",
+                        employeeShift.place,
                         style: TextStyle(
-                            color: Colors.blue,
+                            fontSize: 12.0,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 5.0),
+                        child: Image.asset("assets/images/coffee.png",
+                            height: 15.0, width: 15.0),
+                      ),
+                      SizedBox(
+                        width: 7.0,
+                      ),
+                      Text(
+                        "${DateFormat('HH:mm').format(shift.restStart)} - ${DateFormat('HH:mm').format(shift.restEnd)}",
+                        style: TextStyle(
+                            color: Colors.grey,
                             fontWeight: FontWeight.w600,
                             fontSize: 12.0),
-                      ),
+                      )
                     ],
                   ),
-                ]),
-                SizedBox(
-                  height: 12.0,
-                ),
-                Row(
-                  children: <Widget>[
-                    Image.asset(
-                      "assets/images/map.png",
-                      height: 15.0,
-                      width: 15.0,
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      employeeShift.place,
-                      style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 5.0),
-                      child: Image.asset("assets/images/coffee.png",height: 15.0, width: 15.0),
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      "${DateFormat('HH:mm').format(shift.restStart)} - ${DateFormat('HH:mm').format(shift.restEnd)}",
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12.0),
-                    )
-                  ],
-                ),
-                SizedBox(height: 5.0,)
-              ],
+                  SizedBox(
+                    height: 5.0,
+                  )
+                ],
+              ),
             ),
           ),
         ),
-      ),
-      Positioned(
-        top: 15.0,
-        left: 14.0,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: Image.network(
-            employeeShift.employeePhoto,
-            height: 70.0,
-            width: 70.0,
+        Positioned(
+          top: -1.0,
+          left: 30.0,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.network(
+              employeeShift.employeePhoto,
+              height: 70.0,
+              width: 70.0,
+            ),
           ),
-        ),
-      )
-    ]);
+        )
+      ]);
   }
 }
