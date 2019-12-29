@@ -18,8 +18,7 @@ class ScheduledEmployeesList extends StatelessWidget {
           ),
         ],
         place: "Elgiganten Jönköping",
-        employeePhoto:
-            "https://randomuser.me/api/portraits/women/19.jpg"),
+        employeePhoto: "https://randomuser.me/api/portraits/women/19.jpg"),
     EmployeeShift(
         name: "Antonio Rodriguez",
         shiftDates: [
@@ -55,8 +54,7 @@ class ScheduledEmployeesList extends StatelessWidget {
           ),
         ],
         place: "Elgiganten Jönköping",
-        employeePhoto:
-            "https://randomuser.me/api/portraits/men/91.jpg"),
+        employeePhoto: "https://randomuser.me/api/portraits/men/91.jpg"),
     EmployeeShift(
         name: "Antonio Rodriguez",
         shiftDates: [
@@ -80,8 +78,7 @@ class ScheduledEmployeesList extends StatelessWidget {
           ),
         ],
         place: "Elgiganten Jönköping",
-        employeePhoto:
-            "https://randomuser.me/api/portraits/men/46.jpg"),
+        employeePhoto: "https://randomuser.me/api/portraits/men/46.jpg"),
     EmployeeShift(
         name: "Antonio Rodriguez",
         shiftDates: [
@@ -93,8 +90,7 @@ class ScheduledEmployeesList extends StatelessWidget {
           ),
         ],
         place: "Elgiganten Jönköping",
-        employeePhoto:
-            "https://randomuser.me/api/portraits/men/26.jpg"),
+        employeePhoto: "https://randomuser.me/api/portraits/men/26.jpg"),
     EmployeeShift(
         name: "Antonio Rodriguez",
         shiftDates: [
@@ -106,8 +102,7 @@ class ScheduledEmployeesList extends StatelessWidget {
           ),
         ],
         place: "Elgiganten Jönköping",
-        employeePhoto:
-            "https://randomuser.me/api/portraits/women/58.jpg"),
+        employeePhoto: "https://randomuser.me/api/portraits/women/58.jpg"),
     EmployeeShift(
         name: "Antonio Rodriguez",
         shiftDates: [
@@ -119,7 +114,31 @@ class ScheduledEmployeesList extends StatelessWidget {
           ),
         ],
         place: "Elgiganten Jönköping",
-        employeePhoto: "https://randomuser.me/api/portraits/women/56.jpg"),
+        employeePhoto: "https://randomuser.me/api/portraits/women/80.jpg"),
+        EmployeeShift(
+        name: "Antonio Rodriguez",
+        shiftDates: [
+          ShiftDate(
+            startDate: DateTime(2019, 12, 26, 12, 0),
+            endDate: DateTime(2019, 12, 26, 17, 0),
+            restStart: DateTime(2019, 12, 26, 14, 0),
+            restEnd: DateTime(2019, 12, 26, 14, 30),
+          ),
+        ],
+        place: "Elgiganten Jönköping",
+        employeePhoto: "https://randomuser.me/api/portraits/men/73.jpg"),
+        EmployeeShift(
+        name: "Antonio Rodriguez",
+        shiftDates: [
+          ShiftDate(
+            startDate: DateTime(2019, 12, 26, 12, 0),
+            endDate: DateTime(2019, 12, 26, 17, 0),
+            restStart: DateTime(2019, 12, 26, 14, 0),
+            restEnd: DateTime(2019, 12, 26, 14, 30),
+          ),
+        ],
+        place: "Elgiganten Jönköping",
+        employeePhoto: "https://randomuser.me/api/portraits/men/11.jpg"),
   ];
 
   ScheduledEmployeesList({Key key}) : super(key: key);
@@ -129,17 +148,20 @@ class ScheduledEmployeesList extends StatelessWidget {
     WorkShiftProvider provider = Provider.of<WorkShiftProvider>(context);
 
     return SliverList(
-      delegate: SliverChildBuilderDelegate((context, index) {
-        final employee  = employees[index];
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          final employee = employees[index];
 
-        final shift = provider.getEmployeeDayShift(employee);
+          final shift = provider.getEmployeeDayShift(employee);
 
-        return shift != null
-            ? WorkShiftCard(
-                employeeShift: employee,
-              )
-            : SizedBox();
-      }, childCount: employees.length),
+          return shift != null
+              ? WorkShiftCard(
+                  employeeShift: employee,
+                )
+              : SizedBox();
+        },
+        childCount: employees.length,
+      ),
     );
   }
 }
