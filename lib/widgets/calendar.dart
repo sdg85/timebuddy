@@ -6,15 +6,15 @@ import 'package:timebuddy/providers/work_shift_provider.dart';
 
 class Calendar extends StatefulWidget {
   static const routeName = "/schedule";
+  final VoidCallback onTapCallback;
 
-  Calendar({Key key}) : super(key: key);
+  Calendar({Key key, this.onTapCallback}) : super(key: key);
 
   @override
   _CalendarState createState() => _CalendarState();
 }
 
 class _CalendarState extends State<Calendar> {
-  // String _headerDate = DateFormat.MMMM('sv_SE').format(DateTime.now());
   final _calendarcontroller = CalendarController();
   DateTime _selectedDate;
 
@@ -28,133 +28,121 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     final provider = Provider.of<WorkShiftProvider>(context);
 
-    return Column(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                InkWell(
-                  child: Container(
-                    padding: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 12,
-                      color: Colors.white,
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      _selectedDate = DateTime(_selectedDate.year, _selectedDate.month - 1);
-                      provider.selectedDay = _selectedDate;
-                    _calendarcontroller.setSelectedDay(_selectedDate);  
-                    });
-                    
-                    // final prevMonth = DateTime(
-                    //         workShiftProvider.selectedDay.year,
-                    //         workShiftProvider.selectedDay.month)
-                    //     .subtract(Duration(days: 30));
-                    // workShiftProvider.selectedDay = prevMonth;
-                    // _todayFormated = DateFormat.MMMM('sv_SE')
-                    //     .format(workShiftProvider.selectedDay);
-                  },
-                ),
-                Text(
-                  "${DateFormat.MMMM('sv_SE').format(_selectedDate)[0].toUpperCase()}${DateFormat.MMMM('sv_SE').format(_selectedDate).substring(1)} ${DateFormat.y().format(_selectedDate)}",
-                  style: TextStyle(
-                      color: Colors.blue[600],
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20),
-                ),
-                InkWell(
-                  child: Container(
-                    padding: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Align(
-                      alignment: Alignment.topRight,
+    return Container(
+      padding: EdgeInsets.all(20.0),
+        color: Colors.white,
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  InkWell(
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(5)),
                       child: Icon(
-                        Icons.arrow_forward_ios,
+                        Icons.arrow_back_ios,
                         size: 12,
                         color: Colors.white,
                       ),
                     ),
+                    onTap: () {
+                      setState(() {
+                        _selectedDate =
+                            DateTime(_selectedDate.year, _selectedDate.month - 1);
+                        provider.selectedDay = _selectedDate;
+                        _calendarcontroller.setSelectedDay(_selectedDate);
+                      });
+                    },
                   ),
-                  onTap: () {
-                    setState(() {
-                      _selectedDate = DateTime(_selectedDate.year, _selectedDate.month + 1);
-                      provider.selectedDay = _selectedDate;
-                      _calendarcontroller.setSelectedDay(_selectedDate);
-                    });
-                    // final nextMonth = DateTime(
-                    //         workShiftProvider.selectedDay.year,
-                    //         workShiftProvider.selectedDay.month)
-                    //     .add(Duration(days: 30));
-
-                    // _todayFormated = DateFormat.MMMM('sv_SE').format(nextMonth);
-                    // workShiftProvider.selectedDay = nextMonth;
-                  },
-                ),
-              ],
+                  Text(
+                    "${DateFormat.MMMM('sv_SE').format(_selectedDate)[0].toUpperCase()}${DateFormat.MMMM('sv_SE').format(_selectedDate).substring(1)} ${DateFormat.y().format(_selectedDate)}",
+                    style: TextStyle(
+                        color: Colors.blue[600],
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20),
+                  ),
+                  InkWell(
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 12,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        _selectedDate =
+                            DateTime(_selectedDate.year, _selectedDate.month + 1);
+                        provider.selectedDay = _selectedDate;
+                        _calendarcontroller.setSelectedDay(_selectedDate);
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-          TableCalendar(
-            headerVisible: false,
-            calendarController: _calendarcontroller,
-            onVisibleDaysChanged: (d, dt, cf) {
-              setState(() {
-                print("onVisibleDaysChanged!");
-                _selectedDate = d;
-                provider.selectedDay = _selectedDate;
-                _calendarcontroller.setSelectedDay(d);
-              });
-              // workShiftProvider.selectedDay = DateTime(d.year, d.month);
-              // _todayFormated = DateFormat.MMMM('sv_SE')
-              //     .format(workShiftProvider.selectedDay);
-            },
-            initialSelectedDay: _selectedDate,
-            locale: 'sv_SE',
-            initialCalendarFormat: CalendarFormat.month,
-            daysOfWeekStyle: DaysOfWeekStyle(
-              weekendStyle:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-              weekdayStyle: TextStyle(fontWeight: FontWeight.bold),
-              dowTextBuilder: (date, locale) {
-                return DateFormat.E(locale)
-                    .format(date)
-                    .substring(0, 3)
-                    .toUpperCase();
+            TableCalendar(
+              headerVisible: false,
+              calendarController: _calendarcontroller,
+              onVisibleDaysChanged: (d, dt, cf) {
+                setState(() {
+                  print("onVisibleDaysChanged!");
+                  _selectedDate = d;
+                  provider.selectedDay = _selectedDate;
+                  _calendarcontroller.setSelectedDay(d);
+                });
               },
-            ),
-            formatAnimation: FormatAnimation.slide,
-            startingDayOfWeek: StartingDayOfWeek.monday,
-            availableGestures: AvailableGestures.horizontalSwipe,
-            builders: CalendarBuilders(
-              dayBuilder: (context, date, list) {
-                return _calendarDayCell(date, false);
+              initialSelectedDay: _selectedDate,
+              locale: 'sv_SE',
+              initialCalendarFormat: CalendarFormat.month,
+              daysOfWeekStyle: DaysOfWeekStyle(
+                weekendStyle:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                weekdayStyle: TextStyle(fontWeight: FontWeight.bold),
+                dowTextBuilder: (date, locale) {
+                  return DateFormat.E(locale)
+                      .format(date)
+                      .substring(0, 3)
+                      .toUpperCase();
+                },
+              ),
+              formatAnimation: FormatAnimation.slide,
+              startingDayOfWeek: StartingDayOfWeek.monday,
+              availableGestures: AvailableGestures.horizontalSwipe,
+              builders: CalendarBuilders(
+                dayBuilder: (context, date, list) {
+                  return _calendarDayCell(date, false);
+                },
+                selectedDayBuilder: (context, date, list) {
+                  return _calendarDayCell(date, true);
+                },
+              ),
+              calendarStyle: CalendarStyle(
+                outsideDaysVisible: false,
+              ),
+              onDaySelected: (DateTime date, List events) {
+                setState(() {
+                  _selectedDate = date;
+                  provider.selectedDay = _selectedDate;
+                  Future.delayed(Duration(milliseconds: 100), () => widget.onTapCallback());
+                });
               },
-              selectedDayBuilder: (context, date, list) {
-                return _calendarDayCell(date, true);
-              },
+              events: {},
             ),
-            calendarStyle: CalendarStyle(
-              outsideDaysVisible: false,
-            ),
-            onDaySelected: (DateTime date, List events) {
-              setState(() {
-                _selectedDate = date;
-                provider.selectedDay = _selectedDate;
-              });
-              // workShiftProvider.selectedDay = date;
-            },
-            events: {},
-          ),
-        ],
+          ],
+        ),
     );
   }
 }
@@ -169,7 +157,7 @@ Widget _calendarDayCell(DateTime date, bool selectedDate) {
           : 55,
       height: 33,
       decoration: BoxDecoration(
-          color: Colors.grey[300].withAlpha(255),
+          color: Colors.grey[100],
           borderRadius: _generateBorderRadius(date)),
       child: Center(
         child: selectedDate
