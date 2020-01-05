@@ -28,9 +28,12 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     final provider = Provider.of<WorkShiftProvider>(context);
 
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 300),
+      height: provider.toggleCalendar ? 450.0 : 0.0,
       padding: EdgeInsets.all(20.0),
-        color: Colors.white,
+      color: Colors.white,
+      child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
@@ -52,8 +55,8 @@ class _CalendarState extends State<Calendar> {
                     ),
                     onTap: () {
                       setState(() {
-                        _selectedDate =
-                            DateTime(_selectedDate.year, _selectedDate.month - 1);
+                        _selectedDate = DateTime(
+                            _selectedDate.year, _selectedDate.month - 1);
                         provider.selectedDay = _selectedDate;
                         _calendarcontroller.setSelectedDay(_selectedDate);
                       });
@@ -83,8 +86,8 @@ class _CalendarState extends State<Calendar> {
                     ),
                     onTap: () {
                       setState(() {
-                        _selectedDate =
-                            DateTime(_selectedDate.year, _selectedDate.month + 1);
+                        _selectedDate = DateTime(
+                            _selectedDate.year, _selectedDate.month + 1);
                         provider.selectedDay = _selectedDate;
                         _calendarcontroller.setSelectedDay(_selectedDate);
                       });
@@ -128,6 +131,28 @@ class _CalendarState extends State<Calendar> {
                 selectedDayBuilder: (context, date, list) {
                   return _calendarDayCell(date, true);
                 },
+                markersBuilder: (context, date, listA, listB) {
+                  print(date.toString() + "\n" + _selectedDate.toString());
+                  return [
+                    Positioned(
+                      top: 35.0,
+                      child: Container(
+                          height: 5.0,
+                          width: 5.0,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: DateTime(
+                                              _selectedDate.year,
+                                              _selectedDate.month,
+                                              _selectedDate.day)
+                                          .compareTo(DateTime(date.year,
+                                              date.month, date.day)) ==
+                                      0
+                                  ? Colors.white
+                                  : Colors.blue)),
+                    )
+                  ];
+                },
               ),
               calendarStyle: CalendarStyle(
                 outsideDaysVisible: false,
@@ -136,13 +161,22 @@ class _CalendarState extends State<Calendar> {
                 setState(() {
                   _selectedDate = date;
                   provider.selectedDay = _selectedDate;
-                  Future.delayed(Duration(milliseconds: 100), () => widget.onTapCallback());
+                  provider.toggleCalendar = !provider.toggleCalendar;
                 });
               },
-              events: {},
+              events: {
+                DateTime.now(): [1, 2, 3, 4, 5],
+                DateTime(2020, 1, 3): [],
+                DateTime(2020, 1, 4): [],
+                DateTime(2020, 1, 6): [],
+                DateTime(2020, 1, 7): [],
+                DateTime(2020, 1, 10): [],
+                DateTime(2020, 1, 13): [],
+              },
             ),
           ],
         ),
+      ),
     );
   }
 }
@@ -157,8 +191,7 @@ Widget _calendarDayCell(DateTime date, bool selectedDate) {
           : 55,
       height: 33,
       decoration: BoxDecoration(
-          color: Colors.grey[100],
-          borderRadius: _generateBorderRadius(date)),
+          color: Colors.grey[100], borderRadius: _generateBorderRadius(date)),
       child: Center(
         child: selectedDate
             ? Container(
