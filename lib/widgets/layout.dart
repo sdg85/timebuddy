@@ -4,9 +4,11 @@ import 'package:timebuddy/widgets/in_progress_loader.dart';
 
 class Layout extends StatefulWidget {
   final String title;
+  final Widget appBarTitleWidget;
   final Widget child;
 
-  Layout({Key key, this.title, this.child}) : super(key: key);
+  Layout({Key key, this.title, this.appBarTitleWidget, this.child})
+      : super(key: key);
 
   @override
   _LayoutState createState() => _LayoutState();
@@ -26,8 +28,9 @@ class _LayoutState extends State<Layout> {
               key: _layoutKey,
               backgroundColor: Color(0xff017ACD),
               appBar: PreferredSize(
-                preferredSize: Size.fromHeight(65),
+                preferredSize: Size.fromHeight(70),
                 child: AppBar(
+                  titleSpacing: MediaQuery.of(context).size.width - 300,
                   leading: IconButton(
                     icon: Icon(
                       Icons.sort,
@@ -37,10 +40,9 @@ class _LayoutState extends State<Layout> {
                       _layoutKey.currentState.openDrawer();
                     },
                   ),
-                  centerTitle: true,
                   elevation: 0,
                   backgroundColor: Color(0xff017ACD),
-                  title: Text(widget.title),
+                  title: widget.appBarTitleWidget,
                 ),
               ),
               drawer: AppDrawer(
