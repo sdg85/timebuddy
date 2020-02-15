@@ -14,26 +14,25 @@ class ScheduleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<WorkShiftProvider>(context);
-
-    return Layout(
-      appBarTitleWidget: InkWell(
-        
-        child: Row(
-          children: <Widget>[
-            Text(
-              DateFormat.MMMM().format(provider.selectedDay), 
-              style: TextStyle(
-                fontSize: 18.0
-            ),),
-            Icon(Icons.arrow_drop_down)
-          ],
+    return Consumer<WorkShiftProvider>(
+      builder: (ctx, workShift, child) => Layout(
+        appBarTitleWidget: InkWell(
+          child: Row(
+            children: <Widget>[
+              Text(
+                "${DateFormat.MMMM('sv_SE').format(workShift.selectedDay)[0].toUpperCase()}${DateFormat.MMMM('sv_SE').format(workShift.selectedDay).substring(1)}",
+                style: TextStyle(fontSize: 18.0),
+              ),
+              Icon(Icons.arrow_drop_down)
+            ],
+          ),
+          onTap: () {
+            workShift.toggleCalendar = true;
+          },
         ),
-        onTap: (){
-          provider.toggleCalendar = true;
-        },
+        title: "Schema",
+        child: child,
       ),
-      title: "Schema",
       child: CustomScrollView(
         controller: _scrollController,
         slivers: <Widget>[
@@ -47,7 +46,7 @@ class ScheduleScreen extends StatelessWidget {
               height: 10.0,
             ),
           ),
-          ScheduledEmployeesList()
+          ScheduledEmployeesList(),
         ],
       ),
     );
