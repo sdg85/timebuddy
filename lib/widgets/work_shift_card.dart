@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-import 'package:timebuddy/models/employee_shift.dart';
-import 'package:timebuddy/providers/work_shift_provider.dart';
+import 'package:timebuddy/models/work_shift.dart';
+import 'package:timebuddy/widgets/circular_image.dart';
 
 class WorkShiftCard extends StatelessWidget {
-  final EmployeeShift employeeShift;
+  final WorkShift employeeShift;
 
   const WorkShiftCard({Key key, this.employeeShift}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final WorkShiftProvider provider = Provider.of<WorkShiftProvider>(context);
-    final shift = provider.getEmployeeDayShift(employeeShift);
-
-    return Stack(children: <Widget>[
+    return Stack(
+      children: <Widget>[
         Container(
           margin: EdgeInsets.all(15.0),
-                  child: Card(
+          child: Card(
             child: Container(
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
@@ -26,7 +23,6 @@ class WorkShiftCard extends StatelessWidget {
                 ),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(children: [
                     SizedBox(
@@ -36,12 +32,12 @@ class WorkShiftCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "${employeeShift.name}",
+                          "${employeeShift.firstName} ${employeeShift.lastName}",
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 15.0),
                         ),
                         Text(
-                          "${DateFormat('HH:mm').format(shift.startDate)} - ${DateFormat('HH:mm').format(shift.endDate)}",
+                          "${DateFormat('HH:mm').format(employeeShift.startShiftDate)} - ${DateFormat('HH:mm').format(employeeShift.endShiftDate)}",
                           style: TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.w600,
@@ -80,7 +76,7 @@ class WorkShiftCard extends StatelessWidget {
                         width: 7.0,
                       ),
                       Text(
-                        "${DateFormat('HH:mm').format(shift.restStart)} - ${DateFormat('HH:mm').format(shift.restEnd)}",
+                        "${DateFormat('HH:mm').format(employeeShift.restStart)} - ${DateFormat('HH:mm').format(employeeShift.restEnd)}",
                         style: TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.w600,
@@ -97,17 +93,12 @@ class WorkShiftCard extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: -1.0,
-          left: 30.0,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.network(
-              employeeShift.employeePhoto,
-              height: 70.0,
-              width: 70.0,
-            ),
-          ),
-        )
-      ]);
+            top: -1.0,
+            left: 30.0,
+            child: CircularImage(
+              imagePath: employeeShift.employeePhoto,
+            ))
+      ],
+    );
   }
 }
