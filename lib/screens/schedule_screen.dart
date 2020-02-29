@@ -18,6 +18,7 @@ class ScheduleScreen extends StatelessWidget {
       builder: (ctx, workShift, child) => Layout(
         appBarTitleWidget: InkWell(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
                 "${DateFormat.MMMM('sv_SE').format(workShift.selectedDay)[0].toUpperCase()}${DateFormat.MMMM('sv_SE').format(workShift.selectedDay).substring(1)}",
