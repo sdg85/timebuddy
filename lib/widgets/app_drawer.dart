@@ -19,6 +19,7 @@ class _AppDrawerState extends State<AppDrawer> {
   }
 
   final drawerItems = [
+    { "title": "Admin", "icon": Icons.supervised_user_circle, "pageUrl": Routes.registerUser },
     { "title": "Schema", "icon": Icons.calendar_today, "pageUrl": Routes.schedule },
     { "title": "Tid", "icon": Icons.schedule, "pageUrl": Routes.stamp },
     {"title": "Mail", "icon": Icons.mail_outline, "pageUrl": Routes.mail},
