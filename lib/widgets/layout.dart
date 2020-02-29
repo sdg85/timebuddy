@@ -30,7 +30,7 @@ class _LayoutState extends State<Layout> {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(70),
                 child: AppBar(
-                  titleSpacing: MediaQuery.of(context).size.width - 300,
+                  centerTitle: true,
                   leading: IconButton(
                     icon: Icon(
                       Icons.sort,
