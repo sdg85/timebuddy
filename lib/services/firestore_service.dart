@@ -17,7 +17,7 @@ class FirestoreService {
 
       Future<User> getUser (String uid) async {
         try{
-          final userData = await _usersCollectionReference.document(uid).get();
+          final userData = await _firestoreEmployeeDb.document(uid).get();
           print(userData.data);
           return User.fromData(userData.data);
         }
