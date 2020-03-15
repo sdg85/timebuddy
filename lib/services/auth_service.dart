@@ -7,10 +7,12 @@ class AuthService with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirestoreService _firestoreService = FirestoreService();
 
+  User _currentUser;
+
   //auth change user stream
   Stream<User> get user {
-    return _auth.onAuthStateChanged.map(_firebaseUserToUser);
-  }
+      return _auth.onAuthStateChanged.map(_firebaseUserToUser);
+    }
 
   //sign in anonymously
   Future<User> signInAnonymously() async {
@@ -23,14 +25,17 @@ class AuthService with ChangeNotifier {
     }
   }
 
+  //sign in with email
   Future<User> signInWithEmailAndPassword(String email, String password) async {
     try {
       final result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      FirebaseUser user = result.user;
-      return _firebaseUserToUser(user);
+      
+      // return _firebaseUserToUser(result.user);
+      _currentUser = await _firestoreService.getUser(result.user.uid);
+      return _currentUser;
     } catch (e) {
-      print(e.toString());
+      print("Error: ${e.toString()}");
       return null;
     }
   }
@@ -38,7 +43,8 @@ class AuthService with ChangeNotifier {
   //sign out
   Future signOut() async {
     try {
-      return await _auth.signOut();
+      await _auth.signOut();
+      _currentUser = null;
     } catch (e) {
       print(e.toString());
       return null;
