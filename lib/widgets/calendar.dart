@@ -159,7 +159,7 @@ class _CalendarState extends State<Calendar> {
                       markersBuilder: (context, date, listA, listB) {
                         return [
                           Positioned(
-                            top: 34.0,
+                            top: 29.0,
                             child: Container(
                                 height: 5.0,
                                 width: 5.0,
