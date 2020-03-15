@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:timebuddy/models/user.dart';
+import 'package:timebuddy/services/firestore_service.dart';
 
 class AuthService with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirestoreService _firestoreService = FirestoreService();
 
   //auth change user stream
   Stream<User> get user {
@@ -49,6 +51,23 @@ class AuthService with ChangeNotifier {
       return true;
     } catch (e) {
       print(e.toString());
+      return false;
+    }
+  }
+
+//register user
+  Future newUser(String password, User user) async {
+    try {
+      final AuthResult result = await _auth.createUserWithEmailAndPassword(
+          email: user.email, password: password);
+
+      if (result == null) return null;
+
+      await _firestoreService.createUser(result.user.uid, user);
+      return true;
+
+    } catch (e) {
+      print("new user in auth: "+ e.toString());
       return false;
     }
   }
