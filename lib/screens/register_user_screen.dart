@@ -18,8 +18,8 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
   AuthService auth = AuthService();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
-  String firstName;
-  String lastName;
+  String firstname;
+  String lastname;
   String email;
   String photo;
   String password;
@@ -63,7 +63,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                         child: Column(
                           children: <Widget>[
                             TextFormField(
-                              onSaved: (val) => firstName = val,
+                              onSaved: (val) => firstname = val,
                               decoration: InputDecoration(labelText: "Förnamn"),
                               validator: (val) {
                                 return val == ""
@@ -72,7 +72,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                               },
                             ),
                             TextFormField(
-                              onSaved: (val) => lastName = val,
+                              onSaved: (val) => lastname = val,
                               decoration:
                                   InputDecoration(labelText: "Efternamn"),
                               validator: (val) {
@@ -125,8 +125,8 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                     setState(() => loading = true);
                                     var user = User(
                                         email: email,
-                                        firstname: firstName,
-                                        lastname: lastName,
+                                        firstname: firstname,
+                                        lastname: lastname,
                                         photo: photo);
                                     final result =
                                         await auth.newUser(password, user);

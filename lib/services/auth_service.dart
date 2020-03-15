@@ -74,6 +74,6 @@ class AuthService with ChangeNotifier {
 
   //helper methods
   User _firebaseUserToUser(FirebaseUser fbUser) {
-    return fbUser != null ? User(uid: fbUser.uid, email: fbUser.email) : null;
+    return fbUser != null ? User(id: fbUser.uid, email: fbUser.email) : null;
   }
 }
