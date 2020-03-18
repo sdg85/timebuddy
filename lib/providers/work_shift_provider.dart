@@ -11,7 +11,10 @@ class WorkShiftProvider with ChangeNotifier {
   bool _isLoading;
   Map<DateTime, List<dynamic>> _allWorkShiftsByMonth =
       Map<DateTime, List<dynamic>>();
+  Map<DateTime, List<dynamic>> _userWorkShiftsByMonth =
+      Map<DateTime, List<dynamic>>();
   List<WorkShift> _selectedDayWorkShifts = List<WorkShift>();
+  final _workshiftsDb = Firestore.instance.collection("work_shift");
   WorkShiftService _service = WorkShiftService();
 
   //get spinner
@@ -30,7 +33,8 @@ class WorkShiftProvider with ChangeNotifier {
     isLoading = true;
     getWorkShiftsByDay(_selectedDay).whenComplete(() {
       isLoading = false;
-      if (_selectedDayWorkShifts.length > 0) _toggleCalendar = !toggleCalendar;
+      if (_selectedDayWorkShifts.length > 0) 
+        _toggleCalendar = !toggleCalendar;
 
       notifyListeners();
     });
@@ -63,7 +67,38 @@ class WorkShiftProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  //getter for user workshifts by month
+  Map<DateTime, List<dynamic>> get userWorkShiftsByMonth => _userWorkShiftsByMonth;
+
+  //setter for user workshifts by month
+  set userWorkShiftsByMonth(Map<DateTime, List<dynamic>> events) {
+    _userWorkShiftsByMonth = events;
+    notifyListeners();
+  }
+
 //--------------------------------functions--------------------------------------//
+
+ //get work shift of a user by month
+  void getUserWorkShiftsByMonth(
+      String userId, DateTime date) async {
+    final events = Map<DateTime, List<dynamic>>();
+    final period = DateFormat("yyyyMM").format(date);
+
+    final listOfDocumentSnapshot = (await _workshiftsDb
+            .where("employeeId", isEqualTo: userId)
+            .where("period", isEqualTo: period)
+            .getDocuments())
+        .documents
+        .toList();
+
+    for (var ds in listOfDocumentSnapshot) {
+      final DateTime shiftDate = ds["startShiftDate"].toDate();
+      final date = DateTime.parse(DateFormat("yyyy-MM-dd").format(shiftDate));
+
+      events[date] = [];
+    }
+    userWorkShiftsByMonth = events;
+  }
 
   //get work shifts of given month and set them to "allWorkShiftsByMonth" property
   void getWorkShiftsOfTheMonth(DateTime date) async {
@@ -82,7 +117,7 @@ class WorkShiftProvider with ChangeNotifier {
     final customDate = DateTime(date.year, date.month, date.day, 0, 0);
 
     //check if there is workshifts on this day by checking with workshifts of month
-    if (!_allWorkShiftsByMonth.containsKey(customDate)) {
+    if (!_userWorkShiftsByMonth.containsKey(customDate)) {
       _selectedDayWorkShifts = List<WorkShift>();
       return;
     }
@@ -103,4 +138,7 @@ class WorkShiftProvider with ChangeNotifier {
             lastName: (ds.data["name"] as String).split(" ")[1]))
         .toList();
   }
+
+
+
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:timebuddy/models/user.dart';
 import 'package:timebuddy/providers/work_shift_provider.dart';
 
 class Calendar extends StatefulWidget {
@@ -38,8 +39,9 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     Provider.of<WorkShiftProvider>(context, listen: false)
-        .getWorkShiftsOfTheMonth(_selectedDate);
+        .getUserWorkShiftsByMonth(user.id, _selectedDate);
 
     return Consumer<WorkShiftProvider>(
       builder: (context, workShift, child) => AnimatedContainer(
@@ -185,7 +187,7 @@ class _CalendarState extends State<Calendar> {
                       _selectedDate = date;
                       workShift.selectedDay = _selectedDate;
                     },
-                    events: workShift.allWorkShiftstByMonth,
+                    events: workShift.userWorkShiftsByMonth,
                   ),
                 ],
               ),
