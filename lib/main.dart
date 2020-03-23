@@ -17,30 +17,34 @@ import 'package:timebuddy/services/auth_service.dart';
 import 'screens/colleges_screen.dart';
 import 'screens/mypage_screen.dart';
 import 'screens/notice_of_interest_screen.dart';
+import './models/user_location.dart';
+import './services/location_service.dart';
 
-void main() => initializeDateFormatting("sv_SE", null)
-.then((_) => runApp(MyApp()));
+void main() =>
+    initializeDateFormatting("sv_SE", null).then((_) => runApp(MyApp()));
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      StreamProvider<User>.value(
-      value: AuthService().user),
-      ChangeNotifierProvider<AuthService>.value(
-        value: AuthService(),
-      ),
-     ChangeNotifierProvider<WorkShiftProvider>.value(
-        value: WorkShiftProvider(),
-      )
-    ],
+    return MultiProvider(
+      providers: [
+        StreamProvider<User>.value(value: AuthService().user),
+        StreamProvider<UserLocation>.value(
+            value: LocationService().locationStream),
+        ChangeNotifierProvider<AuthService>.value(
+          value: AuthService(),
+        ),
+        ChangeNotifierProvider<WorkShiftProvider>.value(
+          value: WorkShiftProvider(),
+        )
+      ],
       child: MaterialApp(
         theme: ThemeData(
           primarySwatch: MaterialColor(0xff017ACD, primaryColor),
           accentColor: MaterialColor(0xffF2F4F9, secondaryColor),
           fontFamily: "Poppins",
         ),
-        routes:{
+        routes: {
           Routes.login: (_) => LoginScreen(),
           Routes.schedule: (_) => ScheduleScreen(),
           Routes.stamp: (_) => StampScreen(),
