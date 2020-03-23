@@ -53,6 +53,7 @@ class _LayoutState extends State<Layout> {
                   topRight: Radius.circular(60),
                 ),
                 child: Container(
+                  height: double.maxFinite,
                   color: Color(0xffF2F4F9),
                   child: widget.child,
                 ),
