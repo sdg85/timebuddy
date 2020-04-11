@@ -31,9 +31,7 @@ final FirestoreService _firestoreService = FirestoreService();
 @override
   void initState() {
     super.initState();
-  }
-
-  @override0,       
+  }     
 
   Widget build(BuildContext context) {
     return Builder(
