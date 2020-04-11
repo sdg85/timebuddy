@@ -26,4 +26,11 @@ class FirestoreService {
           return null;
         }
       }
+
+      Future<List<User>> getAllEmployees() async {
+        return (await _firestoreEmployeeDb.getDocuments())
+        .documents
+        .map( (ds) => User.fromData(ds.data))
+        .toList();
+      }
 }
