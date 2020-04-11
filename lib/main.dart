@@ -5,10 +5,10 @@ import 'package:provider/provider.dart';
 import 'package:timebuddy/models/user.dart';
 import 'package:timebuddy/providers/work_shift_provider.dart';
 import 'package:timebuddy/routes/routes.dart';
+import 'package:timebuddy/screens/admin_screen.dart';
 import 'package:timebuddy/screens/home_sceen.dart';
 import 'package:timebuddy/screens/login_screen.dart';
 import 'package:timebuddy/screens/mail_screen.dart';
-import 'package:timebuddy/screens/register_user_screen.dart';
 import 'package:timebuddy/screens/schedule_screen.dart';
 import 'package:timebuddy/screens/stamp_screen.dart';
 import 'package:timebuddy/screens/wrapper.dart';
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
           Routes.mypage: (_) => MyPageScreen(),
           Routes.noticeOfInterest: (_) => NoticeOfInterestScreen(),
           Routes.home: (_) => HomeScreen(),
-          Routes.registerUser: (_) => RegisterUserScreen()
+          Routes.admin: (_) => AdminScreen()
         },
         title: 'Flutter Demo',
         home: Wrapper(),
