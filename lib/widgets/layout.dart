@@ -7,7 +7,11 @@ class Layout extends StatefulWidget {
   final Widget appBarTitleWidget;
   final Widget child;
 
-  Layout({Key key, this.title, this.appBarTitleWidget, this.child})
+  Layout(
+      {Key key,
+      this.title,
+      this.appBarTitleWidget,
+      this.child})
       : super(key: key);
 
   @override
@@ -24,38 +28,51 @@ class _LayoutState extends State<Layout> {
     return SafeArea(
       child: loading
           ? InProgressLoader()
-          : Scaffold(
-              key: _layoutKey,
-              backgroundColor: Color(0xff017ACD),
-              appBar: PreferredSize(
-                preferredSize: Size.fromHeight(70),
-                child: AppBar(
-                  centerTitle: true,
-                  leading: IconButton(
-                    icon: Icon(
-                      Icons.sort,
-                      size: 30,
+          : WillPopScope(
+              onWillPop: () async => false,
+              child: Scaffold(
+                key: _layoutKey,
+                backgroundColor: Color(0xff017ACD),
+                appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(70),
+                  child: AppBar(
+                    centerTitle: true,
+                    leading: IconButton(
+                      icon: Icon(
+                        Icons.sort,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        _layoutKey.currentState.openDrawer();
+                      },
                     ),
-                    onPressed: () {
-                      _layoutKey.currentState.openDrawer();
-                    },
+                    elevation: 0,
+                    backgroundColor: Color(0xff017ACD),
+                    title: widget.appBarTitleWidget,
+                    actions: <Widget>[
+                      PopupMenuButton(
+                        offset: Offset(0, 100),
+                        itemBuilder: (context) => <PopupMenuItem>[
+                          PopupMenuItem(
+                            child: InkWell(child: Text("Item 1"), onTap: () {}),
+                          )
+                        ],
+                      )
+                    ],
                   ),
-                  elevation: 0,
-                  backgroundColor: Color(0xff017ACD),
-                  title: widget.appBarTitleWidget,
                 ),
-              ),
-              drawer: AppDrawer(
-                title: widget.title,
-              ),
-              body: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(60),
+                drawer: AppDrawer(
+                  title: widget.title,
                 ),
-                child: Container(
-                  height: double.maxFinite,
-                  color: Color(0xffF2F4F9),
-                  child: widget.child,
+                body: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(60),
+                  ),
+                  child: Container(
+                    height: double.maxFinite,
+                    color: Color(0xffF2F4F9),
+                    child: widget.child,
+                  ),
                 ),
               ),
             ),
