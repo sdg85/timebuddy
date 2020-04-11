@@ -37,7 +37,8 @@ class _StampScreenState extends State<StampScreen> {
 
   @override
   void dispose() {
-    timer.cancel();
+    if(timer != null)
+      timer.cancel();
     super.dispose();
   }
 
