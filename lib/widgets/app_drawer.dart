@@ -92,7 +92,7 @@ class _AppDrawerState extends State<AppDrawer> {
           setState(() {
             _selected = title;
           });
-          Navigator.pushNamed(context, pageUrl);
+          Navigator.pushReplacementNamed(context, pageUrl);
         },
         title: Text(title,
             style: TextStyle(
