@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:timebuddy/consts.dart';
 
 import '../models/user.dart';
 import '../services/auth_service.dart';
@@ -35,7 +36,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
               valid
                   ? Text("User successfully created")
                   : Text(
-                      "Något gick fel vid inloggningen var vänlig försök igen"),
+                      "Något gick fel när användaren skulle sparas."),
               Spacer(),
               valid ? Icon(Icons.check_circle) : Icon(Icons.error_outline)
             ],
@@ -60,7 +61,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                         children: <Widget>[
                           TextFormField(
                             onSaved: (val) => firstname = val,
-                            decoration: InputDecoration(labelText: "Förnamn"),
+                            decoration: InputDecoration(hintText: "Förnamn"),
                             validator: (val) {
                               return val == ""
                                   ? "Förnamn är obligatoriskt."
@@ -69,7 +70,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           ),
                           TextFormField(
                             onSaved: (val) => lastname = val,
-                            decoration: InputDecoration(labelText: "Efternamn"),
+                            decoration: InputDecoration(hintText: "Efternamn"),
                             validator: (val) {
                               return val == ""
                                   ? "Efternamn är obligatoriskt."
@@ -79,7 +80,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             onSaved: (val) => email = val,
-                            decoration: InputDecoration(labelText: "E-post"),
+                            decoration: InputDecoration(hintText: "E-post"),
                             validator: (value) {
                               if (!EmailValidator.validate(value)) {
                                 return "Var god och ange ett giltigt e-postadress";
@@ -99,7 +100,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                               return null;
                             },
                             onSaved: (val) => password = val,
-                            decoration: InputDecoration(labelText: "Lösenord"),
+                            decoration: InputDecoration(hintText: "Lösenord"),
                           ),
                           SizedBox(
                             height: 20.0,
@@ -107,12 +108,9 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           SizedBox(
                             width: double.maxFinite - 30.0,
                             child: RaisedButton(
-                              child: Text(
-                                "Registrera",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
+                              color: Theme.of(context).primaryColor,
+                              textColor: Colors.white,
+                              child: Text("Registrera"),
                               onPressed: () async {
                                 if (_key.currentState.validate()) {
                                   _key.currentState.save();
@@ -121,7 +119,8 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                       email: email,
                                       firstname: firstname,
                                       lastname: lastname,
-                                      photo: photo);
+                                      photo: photo ?? AppConsts.userProfileImage);
+                                  
                                   final result =
                                       await auth.newUser(password, user);
 
@@ -135,7 +134,6 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                   autoValidate = true;
                                 });
                               },
-                              color: Color(0xff017ACD),
                             ),
                           ),
                         ],

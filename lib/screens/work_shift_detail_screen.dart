@@ -29,7 +29,7 @@ class WorkShiftDetailScreen extends StatelessWidget {
             top: 60.0,
             left: middle,
             child: Hero(
-              tag: workShift.firstName + workShift.lastName,
+              tag: workShift.name,
               transitionOnUserGestures: true,
               flightShuttleBuilder: (
                 BuildContext flightContext,
