@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:timebuddy/models/user.dart';
 import 'package:timebuddy/providers/work_shift_provider.dart';
 import 'package:timebuddy/routes/routes.dart';
 import 'package:timebuddy/screens/admin_screen.dart';
-import 'package:timebuddy/screens/home_sceen.dart';
+// import 'package:timebuddy/screens/home_sceen.dart';
 import 'package:timebuddy/screens/login_screen.dart';
 import 'package:timebuddy/screens/mail_screen.dart';
 import 'package:timebuddy/screens/schedule_screen.dart';
@@ -20,8 +20,8 @@ import 'screens/notice_of_interest_screen.dart';
 import './models/user_location.dart';
 import './services/location_service.dart';
 
-void main() =>
-    initializeDateFormatting("sv_SE", null).then((_) => runApp(MyApp()));
+void main() => runApp(MyApp());
+    // initializeDateFormatting("sv_SE", null).then((_) => runApp(MyApp()));
 
 class MyApp extends StatelessWidget {
   @override
@@ -39,6 +39,15 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+   // ... app-specific localization delegate[s] here
+   GlobalMaterialLocalizations.delegate,
+   GlobalWidgetsLocalizations.delegate,
+ ],
+ supportedLocales: [
+    const Locale('en'), // English
+    const Locale('sv'), // Chinese
+  ],
         theme: ThemeData(
           primarySwatch: MaterialColor(0xff017ACD, primaryColor),
           accentColor: MaterialColor(0xffF2F4F9, secondaryColor),
@@ -52,7 +61,7 @@ class MyApp extends StatelessWidget {
           Routes.colleges: (_) => CollegesScreen(),
           Routes.mypage: (_) => MyPageScreen(),
           Routes.noticeOfInterest: (_) => NoticeOfInterestScreen(),
-          Routes.home: (_) => HomeScreen(),
+          // Routes.home: (_) => HomeScreen(),
           Routes.admin: (_) => AdminScreen()
         },
         title: 'Flutter Demo',
