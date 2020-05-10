@@ -2,32 +2,58 @@ import 'package:flutter/material.dart';
 
 class WorkShift {
   String id;
-  String firstName;
-  String lastName;
+  String employeeId;
+  String name;
+  String date;
   DateTime startShiftDate;
   DateTime endShiftDate;
   DateTime restStart;
   DateTime restEnd;
   String place;
   String employeePhoto;
+  String period;
+  bool isAssigned;
 
-  WorkShift({
-      @required id,
-      this.firstName,
-      this.lastName,
+  WorkShift(
+      {this.id,
+      this.name,
+      this.date,
       @required this.startShiftDate,
       @required this.endShiftDate,
       this.restStart,
       this.restEnd,
       @required this.place,
-      this.employeePhoto
-      });
+      this.period,
+      this.employeeId,
+      this.isAssigned,
+      this.employeePhoto});
 
-  // factory WorkShift.fromMap(Map data){
-  //   data = data ?? {};
+  WorkShift.fromData(Map<String, dynamic> data)
+      : employeeId = data["employeeId"],
+        date = data["date"],
+        name = data["name"],
+        startShiftDate = data["startShiftDate"],
+        endShiftDate = data["endShiftDate"],
+        restStart = data["restStart"],
+        restEnd = data["restEnd"],
+        place = data["place"],
+        employeePhoto = data["photoUrl"],
+        period = data["period"],
+        isAssigned = data["isAssigned"];
 
-  //   return WorkShift(
-      
-  //   )
-  // }
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'date': date,
+      'startShiftDate': startShiftDate,
+      'endShiftDate': endShiftDate,
+      'restStart': restStart,
+      'restEnd': restEnd,
+      'place': place,
+      'period': period,
+      'employeeId': employeeId,
+      'isAssigned': isAssigned,
+      'photoUrl': employeePhoto
+    };
+  }
 }
