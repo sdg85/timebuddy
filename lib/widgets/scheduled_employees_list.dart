@@ -17,7 +17,7 @@ class ScheduledEmployeesList extends StatelessWidget {
         (context, index) {
           final workShift = provider.selectedDayWorkShifts[index];
           return Hero(
-              tag: workShift.firstName + workShift.lastName,
+              tag: workShift.name,
               transitionOnUserGestures: true,
               flightShuttleBuilder: (
                 BuildContext flightContext,

@@ -1,3 +1,4 @@
+import 'package:timebuddy/screens/admin_screen.dart';
 import 'package:timebuddy/screens/colleges_screen.dart';
 import 'package:timebuddy/screens/login_screen.dart';
 import 'package:timebuddy/screens/mail_screen.dart';
@@ -20,4 +21,5 @@ class Routes {
   static const String home = NoticeOfInterestScreen.routeName;
   static const String workShiftDetail = WorkShiftDetailScreen.routeName;
   static const String registerUser = RegisterUserScreen.routeName;
+  static const String admin = AdminScreen.routeName;
 }

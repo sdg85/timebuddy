@@ -33,8 +33,7 @@ class WorkShiftProvider with ChangeNotifier {
     isLoading = true;
     getWorkShiftsByDay(_selectedDay).whenComplete(() {
       isLoading = false;
-      if (_selectedDayWorkShifts.length > 0) 
-        _toggleCalendar = !toggleCalendar;
+      if (_selectedDayWorkShifts.length > 0) _toggleCalendar = !toggleCalendar;
 
       notifyListeners();
     });
@@ -68,7 +67,8 @@ class WorkShiftProvider with ChangeNotifier {
   }
 
   //getter for user workshifts by month
-  Map<DateTime, List<dynamic>> get userWorkShiftsByMonth => _userWorkShiftsByMonth;
+  Map<DateTime, List<dynamic>> get userWorkShiftsByMonth =>
+      _userWorkShiftsByMonth;
 
   //setter for user workshifts by month
   set userWorkShiftsByMonth(Map<DateTime, List<dynamic>> events) {
@@ -78,9 +78,8 @@ class WorkShiftProvider with ChangeNotifier {
 
 //--------------------------------functions--------------------------------------//
 
- //get work shift of a user by month
-  void getUserWorkShiftsByMonth(
-      String userId, DateTime date) async {
+  //get work shift of a user by month
+  void getUserWorkShiftsByMonth(String userId, DateTime date) async {
     final events = Map<DateTime, List<dynamic>>();
     final period = DateFormat("yyyyMM").format(date);
 
@@ -126,7 +125,8 @@ class WorkShiftProvider with ChangeNotifier {
     final result = await _service.getWorkShiftsByDay(customDate);
 
     _selectedDayWorkShifts = result.documents
-        .map((ds) => WorkShift(
+        .map(
+          (ds) => WorkShift(
             id: ds.documentID,
             startShiftDate: ds.data["startShiftDate"].toDate(),
             endShiftDate: ds.data["endShiftDate"].toDate(),
@@ -134,11 +134,9 @@ class WorkShiftProvider with ChangeNotifier {
             place: ds.data["place"],
             employeePhoto: ds.data["photoUrl"],
             restEnd: ds.data["restEnd"].toDate(),
-            firstName: (ds.data["name"] as String).split(" ")[0],
-            lastName: (ds.data["name"] as String).split(" ")[1]))
+            name: ds.data["name"],
+          ),
+        )
         .toList();
   }
-
-
-
 }

@@ -32,7 +32,7 @@ class WorkShiftCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "${employeeShift.firstName} ${employeeShift.lastName}",
+                          "${employeeShift.name}",
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 15.0),
                         ),

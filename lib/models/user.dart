@@ -7,8 +7,8 @@ class User {
 
   User({this.id, this.email, this.firstname, this.lastname, this.photo});
 
-  User.fromData(Map<String, dynamic> data)
-      : id = data["uid"],
+  User.fromData(String id, Map<String, dynamic> data)
+      : id = id,
         email = data["email"],
         firstname = data["firstName"],
         lastname = data["lastName"],
@@ -16,7 +16,6 @@ class User {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'email': email,
       'firstName': firstname,
       'lastName': lastname,
