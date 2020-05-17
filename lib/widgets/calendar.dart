@@ -33,15 +33,17 @@ class _CalendarState extends State<Calendar> {
   void initState() {
     // _selectedDate = DateTime(2020, 03,01);
     _selectedDate = DateTime.now();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => _getWidgetHeightSize());
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    Provider.of<WorkShiftProvider>(context, listen: false)
-        .getUserWorkShiftsByMonth(user.id, _selectedDate);
+    final _workShiftProvider = Provider.of<WorkShiftProvider>(context, listen: false);
+    _workShiftProvider.getUserWorkShiftsByMonth(user.id, _selectedDate);
 
     return Consumer<WorkShiftProvider>(
       builder: (context, workShift, child) => AnimatedContainer(

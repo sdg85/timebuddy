@@ -113,6 +113,9 @@ class WorkShiftProvider with ChangeNotifier {
   }
 
   Future getWorkShiftsByDay(DateTime date) async {
+    if(date == null)
+      date = DateTime(1970, 01, 01);
+      
     final customDate = DateTime(date.year, date.month, date.day, 0, 0);
 
     //check if there is workshifts on this day by checking with workshifts of month

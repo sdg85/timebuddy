@@ -15,25 +15,32 @@ class ScheduleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<WorkShiftProvider>(
-      builder: (ctx, workShift, child) => Layout(
-        appBarTitleWidget: InkWell(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "${DateFormat.MMMM('sv_SE').format(workShift.selectedDay)[0].toUpperCase()}${DateFormat.MMMM('sv_SE').format(workShift.selectedDay).substring(1)}",
-                style: TextStyle(fontSize: 18.0),
-              ),
-              Icon(Icons.arrow_drop_down)
-            ],
+      builder: (ctx, workShift, child) {
+       
+       if(workShift.selectedDay == null)
+        workShift.selectedDay = DateTime.now();
+
+        print(workShift.selectedDay);
+        return Layout(
+          appBarTitleWidget: InkWell(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "${DateFormat.MMMM('sv_SE').format(workShift.selectedDay)[0].toUpperCase()}${DateFormat.MMMM('sv_SE').format(workShift.selectedDay).substring(1)}",
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                Icon(Icons.arrow_drop_down)
+              ],
+            ),
+            onTap: () {
+              workShift.toggleCalendar = true;
+            },
           ),
-          onTap: () {
-            workShift.toggleCalendar = true;
-          },
-        ),
-        title: "Schema",
-        child: child,
-      ),
+          title: "Schema",
+          child: child,
+        );
+      },
       child: CustomScrollView(
         controller: _scrollController,
         slivers: <Widget>[
