@@ -12,8 +12,9 @@ class WorkShiftService {
     .getDocuments();
   }
 
-  //get logged in user workshifts by month
+  //get user workshifts by month
   Future<QuerySnapshot> getUserWorkShiftsByMonth(String userId, DateTime date) async {
+    print("user work shifts of the month loaded");
     final period = DateFormat("yyyyMM").format(date);
      
      return await db.collection("work_shift")
