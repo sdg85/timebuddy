@@ -17,37 +17,36 @@ class ScheduledEmployeesList extends StatelessWidget {
         (context, index) {
           final workShift = provider.selectedDayWorkShifts[index];
           return Hero(
-              tag: workShift.name,
-              transitionOnUserGestures: true,
-              flightShuttleBuilder: (
-                BuildContext flightContext,
-                Animation<double> animation,
-                HeroFlightDirection flightDirection,
-                BuildContext fromHeroContext,
-                BuildContext toHeroContext,
-              ) {
-                return SingleChildScrollView(
-                  child: fromHeroContext.widget,
-                );
-              },
-              child: Material(
-                type: MaterialType.transparency,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WorkShiftDetailScreen(
-                          workShift: workShift,
-                        ),
-                      ),
-                    );
-                  },
-                  child: WorkShiftCard(
-                    employeeShift: workShift,
-                  ),
+            tag: workShift.name,
+            transitionOnUserGestures: true,
+            flightShuttleBuilder: (
+              BuildContext flightContext,
+              Animation<double> animation,
+              HeroFlightDirection flightDirection,
+              BuildContext fromHeroContext,
+              BuildContext toHeroContext,
+            ) {
+              return SingleChildScrollView(
+                child: fromHeroContext.widget,
+              );
+            },
+            child: Material(
+              type: MaterialType.transparency,
+              child: InkWell(
+                onTap: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (context) => WorkShiftDetailScreen(workShift: workShift),
+                            ),
+                  );
+                },
+                child: WorkShiftCard(
+                  employeeShift: workShift,
                 ),
               ),
+            ),
           );
         },
         childCount: provider.selectedDayWorkShifts.length,
