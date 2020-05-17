@@ -8,6 +8,7 @@ import 'package:timebuddy/screens/register_user_screen.dart';
 import 'package:timebuddy/screens/schedule_screen.dart';
 import 'package:timebuddy/screens/stamp_screen.dart';
 import 'package:timebuddy/screens/work_shift_detail_screen.dart';
+import 'package:timebuddy/screens/wrapper.dart';
 
 class Routes {
 
@@ -18,7 +19,7 @@ class Routes {
   static const String colleges = CollegesScreen.routeName;
   static const String mypage = MyPageScreen.routeName;
   static const String noticeOfInterest = NoticeOfInterestScreen.routeName;
-  static const String home = NoticeOfInterestScreen.routeName;
+  static const String home = Wrapper.routeName;
   static const String workShiftDetail = WorkShiftDetailScreen.routeName;
   static const String registerUser = RegisterUserScreen.routeName;
   static const String admin = AdminScreen.routeName;

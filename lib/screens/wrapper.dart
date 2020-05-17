@@ -5,6 +5,7 @@ import 'package:timebuddy/screens/login_screen.dart';
 import 'package:timebuddy/screens/schedule_screen.dart';
 
 class Wrapper extends StatelessWidget {
+  static const String routeName = "/home";
   const Wrapper({Key key}) : super(key: key);
 
   @override
