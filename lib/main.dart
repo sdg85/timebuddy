@@ -45,8 +45,8 @@ class MyApp extends StatelessWidget {
    GlobalWidgetsLocalizations.delegate,
  ],
  supportedLocales: [
-    const Locale('en'), // English
-    const Locale('sv'), // Chinese
+    const Locale('en'),
+    const Locale('sv'),
   ],
         theme: ThemeData(
           primarySwatch: MaterialColor(0xff017ACD, primaryColor),
@@ -61,10 +61,10 @@ class MyApp extends StatelessWidget {
           Routes.colleges: (_) => CollegesScreen(),
           Routes.mypage: (_) => MyPageScreen(),
           Routes.noticeOfInterest: (_) => NoticeOfInterestScreen(),
-          // Routes.home: (_) => HomeScreen(),
+          Routes.home: (_) => Wrapper(),
           Routes.admin: (_) => AdminScreen()
         },
-        title: 'Flutter Demo',
+        title: 'Time Buddy',
         home: Wrapper(),
       ),
     );
